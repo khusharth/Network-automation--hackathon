@@ -1,0 +1,117 @@
+{% extends 'webpage/base.html' %}
+{% block main %}
+{% load widget_tweaks %}
+	<div class="main-panel">
+				<div class="content-wrapper">
+					<div class="card">
+						<div class="card-body">
+							<h2>Linux PCs</h2><br>
+							<div class="dropdown mb-3 mb-md-0">
+								<form method="POST">
+									{% csrf_token %}
+									<input type="submit" class="btn btn-sm btn-outline-warning" value="Refresh" name="refresh">
+								</form>
+							</div>
+							<div class="row">
+								<div class="col-12">
+									<div class="table-responsive">
+										<table class="table">
+											<thead>
+												<tr>
+													<th>Sr. No. #</th>
+													<th>User Name</th>
+													<th>Local IP</th>
+													<th>Actions</th>
+													<th>Poweroff</th>
+													<th>Status</th>
+												</tr>
+											</thead>
+											<tbody>
+											{% for ip in linux_ip %}
+												<tr>
+													<td>1</td>
+													<td>{{ip.host_name}}</td>
+													<td>{{ip.host_ip}}</td>
+													<td>
+														<button class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal-2" data-toggle="tooltip" data-placement="right" title="Run Commands on {{ip.host_ip}}">Run Command</button>
+													</td>
+													<td>
+														<form method="POST">
+															{% csrf_token %}
+															<input class="btn btn-outline-danger" type="submit" name="shutdown" value="Poweroff" data-toggle="tooltip" data-placement="right" title="PowerOff {{ip.host_ip}}" >
+															<input type="hidden" name="shutdown_ip" value="{{ip.host_ip}}">
+														</form>
+													</td>
+													<td>
+														<label class="badge badge-info">Online</label>
+													</td>
+												</tr>
+
+											<div class="modal fade" id="exampleModal-2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-2" aria-hidden="true">
+												<div class="modal-dialog modal-lg" role="document">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="exampleModalLabel-2">Run Command On {{ip.host_ip}}</h5>
+															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+													<form method="POST"  id="linux_command">
+														{% csrf_token %}
+														<div class="form-group" >
+															<div class="form-check" style="padding-left: 15px;padding-right: 15px;">
+																<textarea class="form-control" id="command_word" rows="2" style="background-color: black;color: green;font-weight: 500;font-size: 0.92em;font-family: 'Lucida Console', 'Lucida Sans Typewriter', monaco, 'Bitstream Vera Sans Mono', monospace;" name="command_word" placeholder="Type Terminal Command Here >>">>>> </textarea>
+																<input type="hidden" id="command_ip" name="command_ip" value="{{ip.host_ip}}">
+															</div>
+														</div>
+
+														<div id="temp_command_res">
+															
+														</div>
+													
+														<div class="modal-footer">
+															<input type="submit"  name="command" value="RUN" class="btn btn-success">
+														</div>
+													</form>
+													</div>
+												  </div>
+												</div>
+
+												{% endfor %}
+
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<script type="text/javascript">document.getElementById("exampleTextarea1").defaultValue = ">>> ";</script>
+
+				
+{% endblock %}
+
+{% block js %}
+<script >
+	$(document).on('submit','#linux_command',function(e){
+		e.preventDefault();
+
+  			$.ajax({
+  				type:'POST',
+  				url:'{% url "linux_command" %}',
+  				data:{
+  					command_word:$('#command_word').val(),
+  					command_ip:$('#command_ip').val(),
+  					csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+  				},
+  				success:function(data){
+  					$('#temp_command_res').html(data.command_form)
+  					$('#command_word').val('>>> ')
+  				}
+  			})
+		// return false;
+  		});
+	
+</script>
+{% endblock %}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Log In</title>
+	{% load static %}
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous"	<link rel="stylesheet" href="http://www.urbanui.com/fily/template/vendors/css/vendor.bundle.addons.css">
+	<link rel="stylesheet" href="{% static 'webpage/css/style.css' %}">
+
+	<link rel="shortcut icon" href="http://www.urbanui.com/fily/template/images/favicon.png" />
+</head>
+
+<body>
+	<div class="container-scroller">
+		<div class="container-fluid page-body-wrapper full-page-wrapper">
+			<div class="content-wrapper d-flex align-items-center auth lock-full-bg" style="background: url('{% static 'webpage/images/wallpaper.jpg' %}'); background-size: cover">
+				<div class="row w-100">
+					<div class="col-lg-4 mx-auto">
+						<div class="auth-form-transparent text-left p-5 text-center">
+							<img src="{% static 'webpage/images/download.png' %}" class="lock-profile-img" alt="img">
+							<form class="pt-5" method="POST">
+								{% csrf_token %}
+								<div class="form-group">
+									<label for="examplePassword1">Password to unlock</label>
+									<p style="color: red;">{{error}}</p>
+									<input type="password" class="form-control text-center" name="password" id="examplePassword1" placeholder="Password">
+								</div>
+								<div class="mt-5">
+									<input class="btn btn-block btn-success btn-lg font-weight-medium" type="submit" value="Log In">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="http://www.urbanui.com/fily/template/vendors/js/vendor.bundle.base.js"></script>
+	<script src="http://www.urbanui.com/fily/template/vendors/js/vendor.bundle.addons.js"></script>
+
+	<script src="http://www.urbanui.com/fily/template/js/off-canvas.js"></script>
+	<script src="http://www.urbanui.com/fily/template/js/hoverable-collapse.js"></script>
+	<script src="http://www.urbanui.com/fily/template/js/template.js"></script>
+	<script src="http://www.urbanui.com/fily/template/js/settings.js"></script>
+	<script src="http://www.urbanui.com/fily/template/js/todolist.js"></script>
+
+
+
+</html>
