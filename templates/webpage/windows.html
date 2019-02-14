@@ -1,0 +1,74 @@
+{% extends 'webpage/base.html' %}
+{% block main %}
+	<div class="main-panel">
+				<div class="content-wrapper">
+					<div class="card">
+						<div class="card-body">
+							<h2>Windows PCs</h2><br>
+							<div class="dropdown mb-3 mb-md-0">
+								<form method="POST">
+									{% csrf_token %}
+									<input type="submit" class="btn btn-sm btn-outline-warning" value="Refresh" name="refresh">
+								</form>
+							</div>
+							<div class="row">
+								<div class="col-12">
+									<div class="table-responsive">
+										<table class="table">
+											<thead>
+												<tr>
+													<th>Sr. No. #</th>
+													<th>User Name</th>
+													<th>Local IP</th>
+													<th>Actions</th>
+													<th>Poweroff</th>
+													<th>Status</th>
+												</tr>
+											</thead>
+											<tbody>
+											{% for ip in windows_ip %}
+												<tr>
+													<td>{{ forloop.counter }}</td>
+													<td>{{ip.host_name}}</td>
+													<td>{{ip.host_ip}}</td>
+													<td>
+														<form method="POST" action="/windows/command/{{ip.host_name}}/{{ip.host_ip}}">
+															{% csrf_token %}
+															<input class="btn btn-outline-success" type="submit" name="command" value="Run Command" title="Run Command On {{ip.host_ip}}" >
+
+															<input type="hidden" name="command_ip" value="{{ip.host_ip}}">
+
+															<input type="hidden" name="command_hostname" value="{{ip.host_name}}">
+														</form>
+													</td>
+													<td>
+														<form method="POST">
+															{% csrf_token %}
+															<input class="btn btn-outline-danger" type="submit" name="shutdown" value="Poweroff" title="PowerOff {{ip.host_ip}}" >
+
+															<input type="hidden" name="shutdown_ip" value="{{ip.host_ip}}">
+
+															<input type="hidden" name="shutdown_hostname" value="{{ip.host_name}}">
+														</form>
+													</td>
+													<td>
+														<label class="badge badge-info">Online</label>
+													</td>
+												</tr>
+												{% endfor %}
+
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

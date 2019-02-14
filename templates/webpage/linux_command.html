@@ -1,0 +1,85 @@
+{% extends 'webpage/base.html' %}
+{% block main %}
+{% load widget_tweaks %}
+	<div class="main-panel">
+				<div class="content-wrapper">
+					<form method="POST" id="linux_command">
+						{% csrf_token %}
+						<div class="form-group" >
+							{{command_hostname}}
+							<div class="form-check" style="padding-left: 15px;padding-right: 15px;">
+								<textarea class="form-control" id="command_word" rows="5" style="background-color: black;color: green;font-weight: 500;font-size: 0.92em;font-family: 'Lucida Console', 'Lucida Sans Typewriter', monaco, 'Bitstream Vera Sans Mono', monospace;" name="command_word" placeholder="Type Terminal Command Here >>">>>> </textarea>
+								<input type="hidden" id="command_ip" name="command_ip" value="{{command_ip}}">
+								<input type="hidden" id="command_hostname" name="command_ip" value="{{command_hostname}}">
+							</div>
+						</div>
+
+						<div id="temp_command_res">
+						
+						</div>
+					
+						<div class="modal-footer">
+							<input type="submit"  name="command" value="RUN" class="btn btn-success">
+						</div>
+					</form>
+				</div>
+				<div class="content-wrapper">
+				<div class="col-12 grid-margin stretch-card">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="card-title">Upload Software</h4>
+							<br><br>
+
+							<form class="forms-sample" method="POST" enctype="multipart/form-data">
+								{% csrf_token %}
+								<div class="form-group">
+									<label for="exampleInputName1">Software Name</label>
+									<!-- {{form.software_name|attr:"class:form-control" |attr:"id:exampleInputName1" |attr:" placeholder:Software Name"|attr:" name:software_name"}} -->
+									<input type="text" class="form-control" id="exampleInputName1" placeholder="Software Name" name="software_name">
+									<input type="hidden" id="command_ip" name="command_ip" value="{{command_ip}}">
+									<input type="hidden" id="command_hostname" name="command_ip" value="{{command_hostname}}">
+								</div>
+
+								<div class="form-group">
+									<label>File upload</label>									
+									<div class="input-group col-xs-12">
+										<!-- {{form.software_location|attr:"name:myfile"|attr:"class:file-upload-browse btn btn-primary"}} -->
+										<input type="file" name="myfile" class="file-upload-browse btn btn-primary">
+										
+									</div>
+								</div>
+
+								<button type="submit" class="btn btn-primary mr-2">Submit</button>
+								<button class="btn btn-light">Cancel</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+				
+{% endblock %}
+
+{% block js %}
+<script >
+	$(document).on('submit','#linux_command',function(e){
+		e.preventDefault();
+  			$.ajax({
+  				type:'POST',
+  				url:'{% url "temp_linux_command" %}',
+  				data:{
+  					command_word:$('#command_word').val(),
+  					command_ip:$('#command_ip').val(),
+  					command_hostname:$('#command_hostname').val(),
+  					csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+  				},
+  				success:function(data){
+  					$('#temp_command_res').html(data.command_form)
+  					$('#command_word').val('>>> ')
+  				}
+  			})
+		// return false;
+  		});
+	
+</script>
+{% endblock %}

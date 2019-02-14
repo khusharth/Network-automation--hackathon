@@ -1,0 +1,26 @@
+soe1223 : 192.168.0.104
+soe1333 : 192.168.0.102
+0x026f : 192.168.0.105
+
+<!-- {% block js %}
+<script >
+	$(document).on('submit','#linux_command',function(e){
+		e.preventDefault();
+  			$.ajax({
+  				type:'POST',
+  				url:'{% url "linux_command" %}',
+  				data:{
+  					command_word:$('#command_word').val(),
+  					command_ip:$('#command_ip').val(),
+  					csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+  				},
+  				success:function(data){
+  					$('#temp_command_res').html(data.command_form)
+  					$('#command_word').val('>>> ')
+  				}
+  			})
+		// return false;
+  		});
+	
+</script>
+{% endblock %} -->

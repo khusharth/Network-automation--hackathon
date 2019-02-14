@@ -1,7 +1,7 @@
 from django import forms
-from .models import uploaded_software
+from .models import linux_software
 
-class upload_software_form(forms.ModelForm):
+class linux_upload_software_form(forms.ModelForm):
     class Meta:
-        model = uploaded_software
-        fields = ('software_name', 'software_location',)
+        model = linux_software
+        fields = ('linux_software_name', 'linux_software_location',)
