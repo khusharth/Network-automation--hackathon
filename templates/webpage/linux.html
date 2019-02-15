@@ -1,11 +1,12 @@
 {% extends 'webpage/base.html' %}
 {% block main %}
 {% load widget_tweaks %}
+{% load static %}
 	<div class="main-panel">
 				<div class="content-wrapper">
 					<div class="card">
 						<div class="card-body">
-							<h2>Linux PCs</h2><br>
+							<h2 style="">Linux PCs</h2>
 							<div class="dropdown mb-3 mb-md-0">
 								<form method="POST">
 									{% csrf_token %}
