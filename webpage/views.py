@@ -6,8 +6,8 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.core.files.storage import FileSystemStorage	
-from .linux_script import get_linux_ip, linux_shutdown, linux_runcommand, linux_upload_file
-from .windows_script import get_windows_ip, windows_runcommand, windows_upload_file
+from .linux_script import get_linux_ip, linux_shutdown, linux_runcommand
+from .windows_script import get_windows_ip, windows_runcommand
 from .models import temp_linux_db,linux_software, temp_windows_db, windows_software
 from django.template.loader import render_to_string
 from django.conf import settings
@@ -85,11 +85,11 @@ def windows(request):
 
 def linux_command(request, hostname, hostip):
 	stdout = ""
-	if request.method == 'POST':
-		if 'software_name' in request.POST:
-			linux_software.objects.create(linux_software_name = request.POST['software_name'], linux_software_location=request.FILES['myfile'])
-			filepath = settings.MEDIA_ROOT+"/software/"+request.FILES['myfile'].name
-			linux_upload_file(request.FILES['myfile'].name,filepath, hostname, hostip)
+	# if request.method == 'POST':
+		# if 'software_name' in request.POST:
+		# 	linux_software.objects.create(linux_software_name = request.POST['software_name'], linux_software_location=request.FILES['myfile'])
+		# 	filepath = settings.MEDIA_ROOT+"/software/"+request.FILES['myfile'].name
+		# 	linux_upload_file(request.FILES['myfile'].name,filepath, hostname, hostip)
 	context = {
 	'stdout':stdout,
 	'command_ip':hostip,
@@ -100,12 +100,12 @@ def linux_command(request, hostname, hostip):
 
 def windows_command(request, hostname, hostip):
 	stdout = ""
-	if request.method == 'POST':
-		if 'software_name' in request.POST:
-			windows_software.objects.create(windows_software_name = request.POST['software_name'], windows_software_location=request.FILES['myfile'])
-			filepath = settings.MEDIA_ROOT+"/software/"+request.FILES['myfile'].name
-			print(filepath)
-			windows_upload_file(request.FILES['myfile'].name,filepath, hostname, hostip)
+	# if request.method == 'POST':
+		# if 'software_name' in request.POST:
+		# 	windows_software.objects.create(windows_software_name = request.POST['software_name'], windows_software_location=request.FILES['myfile'])
+		# 	filepath = settings.MEDIA_ROOT+"/software/"+request.FILES['myfile'].name
+		# 	print(filepath)
+		# 	windows_upload_file(request.FILES['myfile'].name,filepath, hostname, hostip)
 	context = {
 	'stdout':stdout,
 	'command_ip':hostip,

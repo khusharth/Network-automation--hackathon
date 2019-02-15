@@ -23,20 +23,20 @@ def get_windows_ip():
 		except:
 			pass
 
-def windows_upload_file(filename, filepath, hostname, hostip):
-	os.system("sudo chmod +x "+filepath)
+# def windows_upload_file(filename, filepath, hostname, hostip):
+# 	os.system("sudo chmod +x "+filepath)
 
-	ssh = paramiko.SSHClient()
-	ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-	ssh.connect(hostip,port=22, username=hostname, password="0x026f!@",timeout=10)
-	stdin, stdout, stderr = ssh.exec_command('mkdir C:\\software\\')
+# 	ssh = paramiko.SSHClient()
+# 	ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+# 	ssh.connect(hostip,port=22, username=hostname, password="0x026f!@",timeout=10)
+# 	stdin, stdout, stderr = ssh.exec_command('mkdir C:\\software\\')
 
-	transport = paramiko.Transport((hostip, 22))
-	transport.connect(username = hostname, password = "0x026f!@")
-	sftp = paramiko.SFTPClient.from_transport(transport)
-	sftp.put(filepath,'C:\\software\\'+filename)
-	sftp.close()
-	transport.close()
+# 	transport = paramiko.Transport((hostip, 22))
+# 	transport.connect(username = hostname, password = "0x026f!@")
+# 	sftp = paramiko.SFTPClient.from_transport(transport)
+# 	sftp.put(filepath,'C:\\software\\'+filename)
+# 	sftp.close()
+# 	transport.close()
 
 def windows_runcommand(username, ip, command):
 	ssh = paramiko.SSHClient()
