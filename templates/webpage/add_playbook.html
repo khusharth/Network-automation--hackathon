@@ -1,0 +1,27 @@
+{% extends 'webpage/base.html' %}
+{% block main %}
+{% load widget_tweaks %}
+{% load static %}
+	<div class="main-panel">
+		<div class="content-wrapper">
+			<form method="POST" id="linux_command">
+				{% csrf_token %}
+				<div class="form-group" >
+					<div class="form-check" style="padding-left: 15px;padding-right: 15px;">
+						<input type="text" class="form-control" style="background-color: white;color: black;font-weight: 500;font-size: 0.92em;font-family: 'Lucida Console', 'Lucida Sans Typewriter', monaco, 'Bitstream Vera Sans Mono', monospace;" name="playbook_head" placeholder="Type PlayBook Heading for {{host_name}} Here >>">
+						<textarea class="form-control" id="command_word" rows="25" style="background-color: white;color: black;font-weight: 500;font-size: 0.92em;font-family: 'Lucida Console', 'Lucida Sans Typewriter', monaco, 'Bitstream Vera Sans Mono', monospace;" name="playbook_content" placeholder="Type PlayBook for {{host_name}} Here >>"></textarea>
+						<input type="hidden" id="command_ip" name="playbook_ip" value="{{host_ip}}">
+						<input type="hidden" id="command_hostname" name="playbook_host" value="{{host_name}}">
+						<br>
+						<input type="submit"  name="command" value="Save PlayBook" class="btn btn-outline-success">
+					</div>
+				</div>
+			</form>
+		</div>
+
+				
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}
