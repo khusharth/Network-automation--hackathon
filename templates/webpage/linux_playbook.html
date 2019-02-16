@@ -1,0 +1,64 @@
+{% extends 'webpage/base.html' %}
+{% block main %}
+{% load widget_tweaks %}
+{% load static %}
+	<div class="main-panel">
+		<div class="content-wrapper">
+			<table class="table tickets-table mb-2">
+				<thead>
+					<th class="text-muted0">
+						Sr. No. #
+					</th>
+					<th class="text-muted">
+						PlayBook Name
+					</th>
+					<th class="text-muted">
+						Run
+					</th>
+					<th class="text-muted">
+						Action
+					</th>
+					<th class="text-muted">
+						Delete
+					</th>
+				</thead>
+				<tbody>
+					{% for obj in objects %}
+					<tr>
+						<td>
+							<p class="mb-0">{{forloop.counter}}</p>
+						</td>
+						<td>
+							<p class="mb-0">{{obj.playbook_name}}</p>
+						</td>
+						<td>
+							<form method="POST" action="/playbook/run/{{obj.pk}}/{{host_ip}}">
+								{% csrf_token %}
+								<input class="btn btn-outline-success" type="submit" name="run" value="Run" title="Run Playbook" >
+							</form>
+						</td>
+						<td>
+							<form method="POST" action="/playbook/edit/{{obj.pk}}">
+								{% csrf_token %}
+								<input class="btn btn-outline-success" type="submit" name="edit" value="Edit" title="Edit PlayBook" >	
+							</form>
+						</td>
+						<td>
+							<form method="POST" action="/playbook/delete/{{obj.pk}}">
+								{% csrf_token %}
+							<input class="btn btn-outline-danger" type="submit" name="delete" value="Delete" title="Delete PlayBook" >
+						</form>
+						</td>
+					</tr>
+					{% endfor %}
+					
+				</tbody>
+			</table>
+		</div>
+
+				
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

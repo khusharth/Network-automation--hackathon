@@ -1,0 +1,10 @@
+---
+ - name: Install VIM
+   hosts: game
+   become: true
+   tasks:
+
+           - name: installing VIM
+             apt:
+                     name: vim
+    

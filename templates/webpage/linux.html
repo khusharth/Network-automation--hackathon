@@ -23,8 +23,48 @@
 													<th>User Name</th>
 													<th>Local IP</th>
 													<th>Actions</th>
-													<th>Poweroff</th>
-													<th>Status</th>
+													<!-- <th>PlayBook</th> -->
+													<th>PowerOff</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>1</td>
+													<td>All Users</td>
+													<td>All IPs</td>
+													<td>
+														<form method="POST" action="/linux/command/linux_all/">
+															{% csrf_token %}
+															<input class="btn btn-outline-success" type="submit" name="run_on_all" value="Run Command" title="Run Command On {{ip.host_ip}}" >
+
+														</form>
+													</td>
+													<!-- <td>
+														<form method="POST" action="/linux/playbook/linux_all/">
+															{% csrf_token %}
+															<input class="btn btn-outline-success" type="submit" name="PlayBook_on_all" value="PlayBook" title="PlayBook {{ip.host_ip}}" >
+														</form>
+													</td> -->
+													<td>
+														<form method="POST">
+														{% csrf_token %}
+															<input class="btn btn-outline-danger" type="submit" name="shutdown_on_all" value="Poweroff" title="PowerOff {{ip.host_ip}}" >
+														</form>
+													</td>
+												</tr>
+
+											</tbody>
+										</table>
+										<br><hr>
+										<table class="table">
+											<thead>
+												<tr>
+													<th>Sr. No. #</th>
+													<th>User Name</th>
+													<th>Local IP</th>
+													<th>Actions</th>
+													<th>PlayBook</th>
+													<th>PowerOff</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -44,6 +84,16 @@
 														</form>
 													</td>
 													<td>
+														<form method="POST" action="/linux/playbook/{{ip.host_name}}/{{ip.host_ip}}">
+															{% csrf_token %}
+															<input class="btn btn-outline-success" type="submit" name="playbook" value="PlayBook" title="PlayBook {{ip.host_ip}}" >
+
+															<input type="hidden" name="PlayBook_ip" value="{{ip.host_ip}}">
+
+															<input type="hidden" name="PlayBook_hostname" value="{{ip.host_name}}">
+														</form>
+													</td>
+													<td>
 														<form method="POST">
 															{% csrf_token %}
 															<input class="btn btn-outline-danger" type="submit" name="shutdown" value="Poweroff" title="PowerOff {{ip.host_ip}}" >
@@ -52,9 +102,6 @@
 
 															<input type="hidden" name="shutdown_hostname" value="{{ip.host_name}}">
 														</form>
-													</td>
-													<td>
-														<label class="badge badge-info">Online</label>
 													</td>
 												</tr>
 												{% endfor %}

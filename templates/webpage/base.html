@@ -177,23 +177,24 @@
 			<nav class="sidebar sidebar-offcanvas" id="sidebar">
 				<ul class="nav">
 					<li class="nav-item">
-						<a class="nav-link" href="{% url 'home' %}">
-							<i class="fas fa-home menu-icon"></i>
-							<span class="menu-title">Dashboard</span>
-						</a>
-					</li>
-					</li>					<li class="nav-item">
 						<a class="nav-link" href="{% url 'linux' %}">
-							<i class="fas fa-cogs menu-icon"></i>
+							<i class="fas fa-home menu-icon"></i>
 							<span class="menu-title">Linux</span>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="{% url 'windows' %}">
-							<i class="fas fa-cogs menu-icon"></i>
-							<span class="menu-title">Windows</span>
+						<a class="nav-link" href="{% url 'add_playbook' %}">
+							<i class="fas fa-home menu-icon"></i>
+							<span class="menu-title">Add PlayBook</span>
 						</a>
-					</li>                    
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'logout' %}">
+							<i class="fas fa-cogs menu-icon"></i>
+							<span class="menu-title">Logout</span>
+						</a>
+					</li>
+				            
 				</ul>
 			</nav>
 					{% block main %}

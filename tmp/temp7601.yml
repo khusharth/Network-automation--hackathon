@@ -1,0 +1,6 @@
+---
+ - name: Updating Packages
+   hosts: game
+   become: true
+   apt:
+      update_cache=yes

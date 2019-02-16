@@ -1,0 +1,10 @@
+---
+ - name: Install net-tools
+   hosts: game
+   become: true
+   tasks:
+
+           - name: installing net-tools
+             apt:
+                     name: net-tools
+    
