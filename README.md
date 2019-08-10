@@ -1,4 +1,4 @@
-# Automating Software installation using Ansible
+# Automating Software - installation using Ansible
 
 This project is aimed for installing different softwares using a single computer into multiple computers in a lab using playbooks made in Ansible.
 
